@@ -7,7 +7,7 @@
 variable "gcp_project_id" {
   type        = string
   description = "The GCP project ID."
-  default = "linkster-426414"
+  default = "propghandi"
 }
 
 variable "gcp_region_gateway" {
