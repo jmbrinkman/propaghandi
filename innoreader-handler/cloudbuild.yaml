@@ -1,0 +1,30 @@
+steps:
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: 'bash'
+  args:
+  - -c
+  - |
+    mv common_utils/common_utils.py $TRIGGER_NAME
+- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+  entrypoint: gcloud
+  args:
+  - 'functions'
+  - 'deploy'
+  - 'innoreader-handler'
+  - '--gen2'
+  - '--region=$LOCATION'
+  - '--source=$TRIGGER_NAME'
+  - '--trigger-http'
+  - '--runtime=python312'
+  - '--entry-point=innoreader_handler'
+  - '--memory=512M'
+  - '--concurrency=5'
+  - '--max-instances=10'
+  - '--cpu=1'
+  - '--timeout=360'
+  - '--service-account=innoreader-handler-sa@${PROJECT_ID}.iam.gserviceaccount.com'
+  - '--set-secrets'
+  - 'POSTS_BUKET_NAME=posts_buckets_name:latest'
+
+options:
+  logging: CLOUD_LOGGING_ONLY

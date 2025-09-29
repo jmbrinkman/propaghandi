@@ -6,21 +6,15 @@
 resource "random_id" "bucket_prefix" {
   byte_length = 8
 }
+
 resource "google_storage_bucket" "posts_bucket" {
   project                     = var.gcp_project_id
   name                        = "${random_id.bucket_prefix.hex}-bucket"
   location                    = var.gcp_region
   force_destroy               = true
   uniform_bucket_level_access = true
-  lifecycle_rule {
-    action {
-      type = "Delete"
-    }
-    condition {
-      age = 30
-    }
-  }
 }
+
 resource "google_service_account" "innoreader_handler_sa" {
   project      = var.gcp_project_id
   account_id   = "innoreader-handler-sa"
