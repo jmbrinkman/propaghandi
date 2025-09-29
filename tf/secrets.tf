@@ -54,7 +54,7 @@ resource "google_secret_manager_secret" "posts_bucket_name" {
 
 resource "google_secret_manager_secret_version" "posts_bucket_name" {
   secret      = google_secret_manager_secret.posts_bucket_name.id
-  secret_data = google_storage_bucket.image_bucket.name
+  secret_data = google_storage_bucket.posts_bucket.name
 }
 
 resource "google_secret_manager_secret" "innoreader_handler_gateway_url" {
