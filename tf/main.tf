@@ -16,6 +16,15 @@ resource "google_project_service" "secret_manager_api" {
   disable_on_destroy = false
 }
 
+resource "google_project_service" "resource_manager_api" {
+  project = var.gcp_project_id
+  service = "resourcemanager.googleapis.com"
+
+  # This prevents Terraform from disabling the API when you run `terraform destroy`.
+  # It's a best practice to set this to false for most API enablement.
+  disable_on_destroy = false
+}
+
 resource "google_storage_bucket" "posts_bucket" {
   project                     = var.gcp_project_id
   name                        = "${random_id.bucket_prefix.hex}-bucket"
