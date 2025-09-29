@@ -1,0 +1,29 @@
+# openapi2-functions.yaml
+swagger: '2.0'
+info:
+  title: innoreader-handler
+  description: Sample API on API Gateway with a Google Cloud Functions backend
+  version: 1.0.0
+schemes:
+  - https
+paths:
+  /linkster:
+    post:
+      summary: Receive an Innoreader article
+      operationId: route
+      x-google-backend:
+        address: https://innoreader-handler-482676245946.europe-west4.run.app
+        deadline: 60
+      security:
+        - api_key: []
+      responses:
+        '200':
+          description: A successful response
+          schema:
+            type: string
+securityDefinitions:
+  api_key:
+    type: apiKey
+    name: api_key
+    in: query
+    description: API Key
