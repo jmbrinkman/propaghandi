@@ -15,10 +15,10 @@ resource "google_storage_bucket" "posts_bucket" {
   uniform_bucket_level_access = true
 }
 
-resource "google_service_account" "cloud-build" {
+resource "google_service_account" "cloud_build_sa" {
   project      = var.gcp_project_id
-  account_id   = "cloud-build"
-  display_name = "cloud-build"
+  account_id   = "cloud-build-sa"
+  display_name = "Cloud Build Service Account"
 }
 
 resource "google_service_account" "innoreader_handler_sa" {
@@ -27,10 +27,22 @@ resource "google_service_account" "innoreader_handler_sa" {
   display_name = "Innoreader Handler Service Account"
 }
 
-resource "google_service_account_iam_member" "sa_user" {
+resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_admin" {
+  project = var.gcp_project_id
+  role    = "roles/cloudfunctions.admin"
+  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+}
+
+resource "google_project_iam_member" "cloud_build_sa_cloudbuild_builds_editor" {
+  project = var.gcp_project_id
+  role    = "roles/cloudbuild.builds.editor"
+  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+}
+
+resource "google_service_account_iam_member" "cloud_build_sa" {
   service_account_id = google_service_account.innoreader_handler_sa.name
   role               = "roles/iam.serviceAccountUser"
-  member             = "user:${google_service_account.cloud-build.email}"
+  member             = "user:${google_service_account.cloud_build_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "innoreader_handler_sa" {
