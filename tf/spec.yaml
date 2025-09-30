@@ -12,7 +12,7 @@ paths:
       summary: Receive an Innoreader article
       operationId: route
       x-google-backend:
-        address: https://innoreader-handler-482676245946.europe-west4.run.app
+        address: https://europe-west4-propghandi.cloudfunctions.net/innoreader-handler
         deadline: 60
       security:
         - api_key: []
