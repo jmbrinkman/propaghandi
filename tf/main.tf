@@ -15,10 +15,22 @@ resource "google_storage_bucket" "posts_bucket" {
   uniform_bucket_level_access = true
 }
 
+resource "google_service_account" "cloud-build" {
+  project      = var.gcp_project_id
+  account_id   = "cloud-build"
+  display_name = "cloud-build"
+}
+
 resource "google_service_account" "innoreader_handler_sa" {
   project      = var.gcp_project_id
   account_id   = "innoreader-handler-sa"
   display_name = "Innoreader Handler Service Account"
+}
+
+resource "google_service_account_iam_member" "sa_user" {
+  service_account_id = google_service_account.innoreader_handler_sa.name
+  role               = "roles/iam.serviceAccountUser"
+  member             = "user:${google_service_account.cloud-build_sa.email}"
 }
 
 resource "google_storage_bucket_iam_member" "innoreader_handler_sa" {
