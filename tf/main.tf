@@ -39,6 +39,12 @@ resource "google_project_iam_member" "cloud_build_sa_cloudbuild_builds_editor" {
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
+resource "google_project_iam_member" "cloud_build_sa_iam_serviceaccount_user" {
+  project = var.gcp_project_id
+  role    = "roles/cloudbuild.iam.serviceaccount.user"
+  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+}
+
 resource "google_service_account_iam_member" "cloud_build_sa" {
   service_account_id = google_service_account.innoreader_handler_sa.name
   role               = "roles/iam.serviceAccountUser"
