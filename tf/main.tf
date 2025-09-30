@@ -35,7 +35,7 @@ resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_admin" {
 
 resource "google_project_iam_member" "cloud_build_sa_cloudbuild_builds_editor" {
   project = var.gcp_project_id
-  role    = "roles/cloudbuild.builds.editor"
+  role    = "roles/cloudbuild.builds.builder"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
