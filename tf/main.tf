@@ -30,7 +30,7 @@ resource "google_service_account" "innoreader_handler_sa" {
 resource "google_service_account_iam_member" "sa_user" {
   service_account_id = google_service_account.innoreader_handler_sa.name
   role               = "roles/iam.serviceAccountUser"
-  member             = "user:${google_service_account.cloud-build_sa.email}"
+  member             = "user:${google_service_account.cloud-build.email}"
 }
 
 resource "google_storage_bucket_iam_member" "innoreader_handler_sa" {
