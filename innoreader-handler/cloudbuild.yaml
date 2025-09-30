@@ -1,11 +1,5 @@
 steps:
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-  entrypoint: 'bash'
-  args:
-  - -c
-  - |
-    mv common_utils/common_utils.py $TRIGGER_NAME
-- name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
   entrypoint: gcloud
   args:
   - 'functions'
