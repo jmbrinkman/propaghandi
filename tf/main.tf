@@ -72,7 +72,7 @@ resource "google_project_iam_member" "innoreader_handler_gateway_cloudfunctions_
 }
 
 # API Gateway
-resource "google_api_gateway_gateway" "innoreader_handler" {
+/* resource "google_api_gateway_gateway" "innoreader_handler" {
   project  = var.gcp_project_id
   region   = var.gcp_region_gateway
   gateway_id = "innoreader-handler"
@@ -101,7 +101,7 @@ resource "google_api_gateway_api_config" "innoreader_handler" {
       google_service_account = google_service_account.innoreader_handler_gateway_sa.id
     }
   }
-}
+} */
 
 
 resource "google_secret_manager_secret" "innoreader_handler_sa_email" {
