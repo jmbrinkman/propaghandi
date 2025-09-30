@@ -3,11 +3,11 @@ swagger: '2.0'
 info:
   title: innoreader-handler
   description: Sample API on API Gateway with a Google Cloud Functions backend
-  version: 1.0.0
+  version: 1.1.0
 schemes:
   - https
 paths:
-  /linkster:
+  /:
     post:
       summary: Receive an Innoreader article
       operationId: route
