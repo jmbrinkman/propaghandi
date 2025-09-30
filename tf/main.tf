@@ -136,3 +136,22 @@ resource "google_secret_manager_secret_version" "innoreader_handler_gateway_url"
   secret      = google_secret_manager_secret.innoreader_handler_gateway_url.id
   secret_data = google_api_gateway_gateway.innoreader_handler.default_hostname
 }
+
+resource "google_apikeys_key" "innoreader-handler" {
+  name         = "innoreader-handler-api-key"
+  display_name = "innoreader-handler-key"
+}
+
+resource "google_secret_manager_secret" "innoreader-handler-api-key" {
+  secret_id = "innoreader-handler-api-key"
+  project   = var.gcp_project_id
+  replication {
+    auto {
+      }
+    }
+}
+
+resource "google_secret_manager_secret_version" "innoreader-handler-api-key" {
+  secret      = google_secret_manager_secret.innoreader-handler-api-key.id
+  secret_data = google_apikeys_key.innoreader-handler.key_string
+}
