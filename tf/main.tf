@@ -28,6 +28,13 @@ resource "google_service_account" "innoreader_handler_sa" {
   display_name = "Innoreader Handler Service Account"
 }
 
+resource "google_project_iam_member" "innoreader_handler_sa_secretmanger_secretaccessor" {
+  project = var.gcp_project_id
+  role    = "roles/secretmanager.secretAccessor"
+  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+}
+
+
 resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_developer" {
   project = var.gcp_project_id
   role    = "roles/cloudfunctions.developer"
@@ -37,18 +44,6 @@ resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_developer" {
 resource "google_project_iam_member" "cloud_build_sa_cloudbuild_builds_editor" {
   project = var.gcp_project_id
   role    = "roles/cloudbuild.builds.builder"
-  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
-}
-
-resource "google_project_iam_member" "cloud_build_sa_iam_serviceaccount_user" {
-  project = var.gcp_project_id
-  role    = "roles/iam.serviceAccountUser"
-  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
-}
-
-resource "google_project_iam_member" "cloud_build_sa_secretmanger_secretaccessor" {
-  project = var.gcp_project_id
-  role    = "roles/secretmanager.secretAccessor"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
