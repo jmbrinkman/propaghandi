@@ -47,7 +47,7 @@ resource "google_project_iam_member" "cloud_build_sa_iam_serviceaccount_user" {
 
 resource "google_project_iam_member" "cloud_build_sa_logging_logwriter" {
   project = var.gcp_project_id
-  role    = "roles/loggin.logWriter"
+  role    = "roles/logging.logWriter"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
