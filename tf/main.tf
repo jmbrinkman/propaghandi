@@ -30,7 +30,7 @@ resource "google_service_account" "innoreader_handler_sa" {
 
 resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_admin" {
   project = var.gcp_project_id
-  role    = "roles/cloudfunctions.admin"
+  role    = "roles/cloudfunctions.developer"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
@@ -46,15 +46,21 @@ resource "google_project_iam_member" "cloud_build_sa_iam_serviceaccount_user" {
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
-resource "google_service_account_iam_member" "cloud_build_sa_innoreader_handler_sa" {
-  service_account_id = google_service_account.innoreader_handler_sa.name
-  role    = "roles/iam.serviceAccountUser"
+resource "google_project_iam_member" "cloud_build_sa_secretmanger_secretaccessor" {
+  project = var.gcp_project_id
+  role    = "roles/secretmanager.secretAccessor"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
-resource "google_project_iam_member" "cloud_build_sa_logging_logwriter" {
+resource "google_project_iam_member" "cloud_build_sa_logging_configwriter" {
   project = var.gcp_project_id
-  role    = "roles/logging.logWriter"
+  role    = "roles/logging.configWriter"
+  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+}
+
+resource "google_service_account_iam_member" "cloud_build_sa_innoreader_handler_sa" {
+  service_account_id = google_service_account.innoreader_handler_sa.name
+  role    = "roles/iam.serviceAccountUser"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
