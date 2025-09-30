@@ -6,6 +6,9 @@ steps:
   - 'deploy'
   - 'innoreader-handler'
   - '--gen2'
+  - '--no-allow-unauthenticated'
+  - '--run-service-account=innoreader-handler-sa@${PROJECT_ID}.iam.gserviceaccount.com'
+  - '--service-account=cloud-build-sa@${PROJECT_ID}.iam.gserviceaccount.com'
   - '--region=$LOCATION'
   - '--source=$TRIGGER_NAME'
   - '--trigger-http'
@@ -16,8 +19,6 @@ steps:
   - '--max-instances=10'
   - '--cpu=1'
   - '--timeout=360'
-  - '--run-service-account=innoreader-handler-sa@${PROJECT_ID}.iam.gserviceaccount.com'
-  - '--service-account=cloud-build-sa@${PROJECT_ID}.iam.gserviceaccount.com'
   - '--set-secrets'
   - 'POSTS_BUKET_NAME=posts_buckets_name:latest'
 
