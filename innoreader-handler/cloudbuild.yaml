@@ -16,7 +16,7 @@ steps:
   - '--max-instances=10'
   - '--cpu=1'
   - '--timeout=360'
-  - '--service-account=innoreader-handler-sa@${PROJECT_ID}.iam.gserviceaccount.com'
+  - '--run-service-account=innoreader-handler-sa@${PROJECT_ID}.iam.gserviceaccount.com'
   - '--set-secrets'
   - 'POSTS_BUKET_NAME=posts_buckets_name:latest'
 

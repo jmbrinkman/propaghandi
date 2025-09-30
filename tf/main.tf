@@ -28,7 +28,7 @@ resource "google_service_account" "innoreader_handler_sa" {
   display_name = "Innoreader Handler Service Account"
 }
 
-resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_admin" {
+resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_developer" {
   project = var.gcp_project_id
   role    = "roles/cloudfunctions.developer"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
