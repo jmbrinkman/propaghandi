@@ -45,6 +45,12 @@ resource "google_project_iam_member" "cloud_build_sa_iam_serviceaccount_user" {
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
+resource "google_project_iam_member" "cloud_build_sa_logging_logwriter" {
+  project = var.gcp_project_id
+  role    = "roles/loggin.logWriter"
+  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+}
+
 resource "google_storage_bucket_iam_member" "innoreader_handler_sa" {
   bucket = google_storage_bucket.posts_bucket.name
   role   = "roles/storage.admin"
