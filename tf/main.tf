@@ -15,6 +15,7 @@ resource "google_storage_bucket" "posts_bucket" {
   uniform_bucket_level_access = true
 }
 
+
 resource "google_service_account" "cloud_build_sa" {
   project      = var.gcp_project_id
   account_id   = "cloud-build-sa"
@@ -45,16 +46,16 @@ resource "google_project_iam_member" "cloud_build_sa_iam_serviceaccount_user" {
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
+resource "google_service_account_iam_member" "cloud_build_sa_innoreader_handler_sa" {
+  service_account_id = google_service_account.innoreader_handler_sa
+  role               = "roles/iam.serviceAccountUser"
+  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+}
+
 resource "google_project_iam_member" "cloud_build_sa_logging_logwriter" {
   project = var.gcp_project_id
   role    = "roles/logging.logWriter"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
-}
-
-resource "google_storage_bucket_iam_member" "innoreader_handler_sa" {
-  bucket = google_storage_bucket.posts_bucket.name
-  role   = "roles/storage.admin"
-  member = "serviceAccount:${google_service_account.innoreader_handler_sa.email}"
 }
 
 resource "google_service_account" "innoreader_handler_gateway_sa" {
