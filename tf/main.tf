@@ -31,7 +31,7 @@ resource "google_service_account" "innoreader_handler_sa" {
 resource "google_project_iam_member" "innoreader_handler_sa_secretmanger_secretaccessor" {
   project = var.gcp_project_id
   role    = "roles/secretmanager.secretAccessor"
-  member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
+  member  = "serviceAccount:${google_service_account.innoreader_handler_sa.email}"
 }
 
 
