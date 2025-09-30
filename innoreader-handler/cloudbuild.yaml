@@ -8,7 +8,7 @@ steps:
   - '--gen2'
   - '--no-allow-unauthenticated'
   - '--run-service-account=innoreader-handler-sa@${PROJECT_ID}.iam.gserviceaccount.com'
-  - '--service-account=cloud-build-sa@${PROJECT_ID}.iam.gserviceaccount.com'
+  - '--build-service-account=cloud-build-sa@${PROJECT_ID}.iam.gserviceaccount.com'
   - '--region=$LOCATION'
   - '--source=$TRIGGER_NAME'
   - '--trigger-http'
