@@ -2,12 +2,12 @@
 swagger: '2.0'
 info:
   title: innoreader-handler
-  description: Sample API on API Gateway with a Google Cloud Functions backend
+  description: API on API Gateway with a Google Cloud Functions
   version: 1.1.0
 schemes:
   - https
 paths:
-  /:
+  /receive:
     post:
       summary: Receive an Innoreader article
       operationId: route
