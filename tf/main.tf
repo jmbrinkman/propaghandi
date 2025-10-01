@@ -71,7 +71,7 @@ resource "google_project_iam_member" "innoreader_handler_gateway_cloudfunctions_
   member  = "serviceAccount:${google_service_account.innoreader_handler_gateway_sa.email}"
 }
 
-# API Gateway
+/* # API Gateway
 resource "google_api_gateway_gateway" "innoreader_handler" {
   project  = var.gcp_project_id
   region   = var.gcp_region_gateway
@@ -101,7 +101,7 @@ resource "google_api_gateway_api_config" "innoreader_handler" {
       google_service_account = google_service_account.innoreader_handler_gateway_sa.id
     }
   }
-}
+} */
 
 
 resource "google_secret_manager_secret" "innoreader_handler_sa_email" {
@@ -146,7 +146,7 @@ resource "google_secret_manager_secret_version" "posts_bucket_name" {
   secret_data = google_storage_bucket.posts_bucket.name
 }
 
-resource "google_secret_manager_secret" "innoreader_handler_gateway_url" {
+/* resource "google_secret_manager_secret" "innoreader_handler_gateway_url" {
   secret_id = "innoreader_handler_gateway_url"
   project   = var.gcp_project_id
   replication {
@@ -159,7 +159,7 @@ resource "google_secret_manager_secret_version" "innoreader_handler_gateway_url"
   secret      = google_secret_manager_secret.innoreader_handler_gateway_url.id
   secret_data = google_api_gateway_gateway.innoreader_handler.default_hostname
 }
-
+ */
 resource "google_apikeys_key" "innoreader-handler" {
   name         = "innoreader-handler-api-key"
   display_name = "innoreader-handler-key"
