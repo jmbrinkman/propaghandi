@@ -42,7 +42,7 @@ resource "google_storage_bucket_iam_member" "innoreader_handler_sa_storage_admin
 
 resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_developer" {
   project = var.gcp_project_id
-  role    = "roles/cloudfunctions.developer"
+  role    = "roles/cloudfunctions.admin"
   member  = "serviceAccount:${google_service_account.cloud_build_sa.email}"
 }
 
