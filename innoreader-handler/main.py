@@ -44,5 +44,5 @@ def innoreader_handler(request):
     json_data = request.get_json(force=True)
     bucket_name = os.environ.get("POSTS_BUCKET_NAME")
     output_file = f"{uuid.uuid4()}.json" # Use f-string
-    upload_json_to_gcs(bucket_name, json_data, output_file)
-    return {"yeah!"}, 200
+    result =upload_json_to_gcs(bucket_name, json_data, output_file)
+    return result,200
