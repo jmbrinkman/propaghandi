@@ -178,9 +178,9 @@ resource "google_secret_manager_secret_version" "innoreader-handler-api-key" {
   secret_data = google_apikeys_key.innoreader-handler.key_string
 }
 
-/* resource "google_cloud_run_service_iam_member" "innoreader_handler_gateway_run_servicesInvoker" {
+resource "google_cloud_run_service_iam_member" "innoreader_handler_gateway_run_servicesInvoker" {
   service = "innoreader-handler"
   project = var.gcp_project_id
   role    = "roles/run.servicesInvoker"
   member  = "serviceAccount:${google_service_account.innoreader_handler_gateway_sa.email}"
-} */
+}
