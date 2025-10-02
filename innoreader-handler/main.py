@@ -1,5 +1,5 @@
 import functions_framework
-import json as JSON
+import json
 import uuid
 import os
 
