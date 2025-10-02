@@ -34,6 +34,11 @@ resource "google_project_iam_member" "innoreader_handler_sa_secretmanger_secreta
   member  = "serviceAccount:${google_service_account.innoreader_handler_sa.email}"
 }
 
+resource "google_storage_bucket_iam_member" "innoreader_handler_sa_storage_admin" {
+  bucket = google_storage_bucket.posts_bucket.name
+  role   = "roles/storage.admin"
+  member = "serviceAccount:${google_service_account.innoreader_handler_sa.email}"
+}
 
 resource "google_project_iam_member" "cloud_build_sa_cloudfunctions_developer" {
   project = var.gcp_project_id
@@ -63,12 +68,6 @@ resource "google_service_account" "innoreader_handler_gateway_sa" {
   project      = var.gcp_project_id
   account_id   = "innoreader-handler-gateway-sa"
   display_name = "API Gateway service account"
-}
-
-resource "google_project_iam_member" "innoreader_handler_gateway_cloudfunctions_invoker" {
-  project = var.gcp_project_id
-  role    = "roles/cloudfunctions.invoker"
-  member  = "serviceAccount:${google_service_account.innoreader_handler_gateway_sa.email}"
 }
 
 # API Gateway
@@ -177,4 +176,11 @@ resource "google_secret_manager_secret" "innoreader-handler-api-key" {
 resource "google_secret_manager_secret_version" "innoreader-handler-api-key" {
   secret      = google_secret_manager_secret.innoreader-handler-api-key.id
   secret_data = google_apikeys_key.innoreader-handler.key_string
+}
+
+resource "google_cloud_run_service_iam_member" "innoreader_handler_gateway_run_servicesInvoker" {
+  service = "innoreader-handler"
+  project = var.gcp_project_id
+  role    = "roles/run.servicesInvoker"
+  member  = "serviceAccount:${google_service_account.innoreader_handler_gateway_sa.email}"
 }
