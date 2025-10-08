@@ -1,4 +1,5 @@
 import functions_framework
+from bs4 import BeautifulSoup
 import json
 import uuid
 import os
@@ -42,6 +43,9 @@ def upload_json_to_gcs(bucket_name: str, json_data: dict, destination_blob_name:
 @functions_framework.http
 def innoreader_handler(request):
     json_data = request.get_json(force=True)
+    item = json_data["items"][0]
+    text = BeautifulSoup(d['items'][0]['summary']['content']).get_text()
+    item.update({"text":text})
     bucket_name = os.environ.get("POSTS_BUCKET_NAME")
     output_file = f"{uuid.uuid4()}.json" # Use f-string
     upload_json_to_gcs(bucket_name, json_data, output_file)
