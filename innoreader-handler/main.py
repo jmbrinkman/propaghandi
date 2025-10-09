@@ -44,7 +44,7 @@ def upload_json_to_gcs(bucket_name: str, json_data: dict, destination_blob_name:
 def innoreader_handler(request):
     json_data = request.get_json(force=True)
     item = json_data["items"][0]
-    text = BeautifulSoup(['summary']['content']).get_text()
+    text = BeautifulSoup(item['summary']['content']).get_text()
     item.update({"text":text})
     bucket_name = os.environ.get("POSTS_BUCKET_NAME")
     output_file = f"{uuid.uuid4()}.jsonl" # Use f-string
